@@ -514,6 +514,7 @@ final class SyncPhaseCoordinator {
       totalTimes.put(type, totalTimeMillis);
     }
     if (totalTimes.values().stream().mapToLong(l -> l).sum() < 1000) {
+      context.output(PrintOutput.log("Done."));
       return;
     }
 
