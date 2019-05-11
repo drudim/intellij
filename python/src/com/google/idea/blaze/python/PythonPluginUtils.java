@@ -31,6 +31,8 @@ public final class PythonPluginUtils {
           "PythonCore",
           "AndroidStudio",
           "PythonCore",
+          "PyCharmCore",
+          "PythonCore",
           PlatformUtils.CLION_PREFIX,
           "com.intellij.clion-python");
 
