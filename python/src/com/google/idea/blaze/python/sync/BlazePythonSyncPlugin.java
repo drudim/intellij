@@ -35,9 +35,9 @@ import com.google.idea.blaze.base.scope.BlazeContext;
 import com.google.idea.blaze.base.scope.output.IssueOutput;
 import com.google.idea.blaze.base.sync.BlazeSyncManager;
 import com.google.idea.blaze.base.sync.BlazeSyncPlugin;
-import com.google.idea.blaze.base.sync.GenericSourceFolderProvider;
 import com.google.idea.blaze.base.sync.SourceFolderProvider;
 import com.google.idea.blaze.base.sync.projectview.WorkspaceLanguageSettings;
+import com.google.idea.blaze.python.projectstructure.PythonSourceFolderProvider;
 import com.google.idea.common.experiments.BoolExperiment;
 import com.google.idea.common.transactions.Transactions;
 import com.intellij.facet.Facet;
@@ -122,7 +122,8 @@ public class BlazePythonSyncPlugin implements BlazeSyncPlugin {
     if (!projectData.getWorkspaceLanguageSettings().isWorkspaceType(WorkspaceType.PYTHON)) {
       return null;
     }
-    return GenericSourceFolderProvider.INSTANCE;
+
+    return new PythonSourceFolderProvider(projectData.getTargetMap());
   }
 
   @Override
