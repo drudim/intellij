@@ -48,7 +48,8 @@ public class BazelPyImportResolverStrategy extends AbstractPyImportResolverStrat
   @Nullable
   @Override
   protected QualifiedName toImportString(ArtifactLocation source) {
-    if (source.isGenerated() || !source.getRelativePath().endsWith(".py")) {
+    // TODO(brendandouglas): handle references to external workspaces
+    if (!source.getRelativePath().endsWith(".py")) {
       return null;
     }
     return fromRelativePath(source.getRelativePath());
