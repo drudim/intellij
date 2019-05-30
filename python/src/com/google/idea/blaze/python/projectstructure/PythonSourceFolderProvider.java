@@ -11,7 +11,6 @@ import com.google.idea.blaze.base.sync.SourceFolderProvider;
 import com.google.idea.blaze.base.util.UrlUtil;
 import com.intellij.openapi.roots.ContentEntry;
 import com.intellij.openapi.roots.SourceFolder;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.Map;
@@ -46,7 +45,7 @@ public class PythonSourceFolderProvider implements SourceFolderProvider {
                                 )
                         ))
                 .filter(Optional::isPresent)
-                .map(a -> StringUtils.removeEnd(a.get().getRelativePath(), "__init__.py"))
+                .map(a -> removeEnd(a.get().getRelativePath(), "__init__.py"))
                 .collect(toImmutableList());
     }
 
@@ -62,7 +61,8 @@ public class PythonSourceFolderProvider implements SourceFolderProvider {
                 .map(s -> new File(contentFile, s.substring(contentFileName.length())))
                 .collect(Collectors.toMap(
                         f -> f,
-                        f -> contentEntry.addSourceFolder("file://" + f.getAbsolutePath(), false)
+                        f -> contentEntry.addSourceFolder("file://" + f.getAbsolutePath(), false),
+                        (a, b) -> a
                 ));
 
         return ImmutableMap.copyOf(sourceFolders);
@@ -71,5 +71,9 @@ public class PythonSourceFolderProvider implements SourceFolderProvider {
     @Override
     public SourceFolder setSourceFolderForLocation(ContentEntry contentEntry, SourceFolder parentFolder, File file, boolean isTestSource) {
         return contentEntry.addSourceFolder(UrlUtil.fileToIdeaUrl(file), isTestSource);
+    }
+
+    private String removeEnd(String s, String remove) {
+        return s.substring(0, s.length() - remove.length());
     }
 }
