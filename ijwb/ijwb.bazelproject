@@ -9,11 +9,12 @@ targets:
   //ijwb:ijwb_lib
   //:ijwb_tests
   //:ijwb_ue_tests
+  //intellij_platform_sdk:intellij-beta
 
 workspace_type: intellij_plugin
 
 build_flags:
-  --define=ij_product=intellij-latest
+  --define=ij_product=intellij-beta
 
 test_sources:
   */tests/unittests*
